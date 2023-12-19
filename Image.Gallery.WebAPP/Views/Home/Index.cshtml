@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+@model IEnumerable<Image>
+
+<h2>Image Gallery</h2>
+
+@* <div class="image-grid">
+    @foreach (var image in Model)
+    {
+        <div class="image-item">
+            <a asp-action="Details" asp-route-id="@image.Id">
+                <img src="@Url.Action("GetImage", "Api", new { id = image.Id })" alt="@image.Title" />
+            </a>
+            <p>@image.Title</p>
+        </div>
+    }
+</div> *@

@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs
+/Image.Gallery.WebAPP/bin/Debug/net6.0
+/Image.Gallery.WebAPP/obj
