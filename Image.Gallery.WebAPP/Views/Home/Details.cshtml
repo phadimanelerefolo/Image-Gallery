@@ -1,0 +1,11 @@
+﻿@model Image
+
+<h2>Image Details</h2>
+
+<div>
+    <img src="@Url.Action("GetImage", "Api", new { id = Model.Id })" alt="@Model.Title" />
+</div>
+<div>
+    <h3>@Model.Title</h3>
+    <p>@Model.Description</p>
+</div>

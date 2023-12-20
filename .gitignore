@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Image.Gallery.WebAPP/bin/Debug/net6.0
+/Image.Gallery.WebAPP/obj
