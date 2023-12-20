@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Image.Gallery.WebAPP.Controllers
 {
     [ApiController]
-    [Route("api/images")]
+    [Route("[controller]/[action]")]
     public class ApiController : ControllerBase
     {
         private readonly DataContext _context;
@@ -19,14 +19,13 @@ namespace Image.Gallery.WebAPP.Controllers
             _configuration = configuration;
         }
 
-        // Retrieve a list of uploaded images
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Models.Image>>> GetImages()
         {
             return await _context.Images.ToListAsync();
         }
 
-        // Retrieve details of a specific image
         [HttpGet("{id}")]
         public async Task<ActionResult<Models.Image>> GetImage(int id)
         {
@@ -40,9 +39,9 @@ namespace Image.Gallery.WebAPP.Controllers
             return image;
         }
 
-        // Upload a new image with a title and description
+        
         [HttpPost]
-        [Authorize] // Requires authentication
+        //[Authorize] // Requires authentication
         public async Task<ActionResult<Models.Image>> UploadImage([FromForm] ImageUpload model)
         {
             if (model.Image == null || model.Image.Length == 0)
@@ -50,7 +49,6 @@ namespace Image.Gallery.WebAPP.Controllers
                 return BadRequest("Invalid image file");
             }
 
-            // Validate image format (you may need to enhance this)
             if (!IsValidImageFormat(model.Image.ContentType))
             {
                 return BadRequest("Invalid image format");
@@ -67,13 +65,14 @@ namespace Image.Gallery.WebAPP.Controllers
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetImage), new { id = image.Id }, image);
+
+            return RedirectToAction("Index", "Home");
         }
 
-        // Update the title or description of an existing image
-        [HttpPut("{id}")]
-        [Authorize] // Requires authentication
-        public async Task<IActionResult> UpdateImage(int id, ImageUpdate model)
+       
+        [HttpPost("{id}")]
+        //[Authorize] // Requires authentication
+        public async Task<IActionResult> UpdateImage(int id, [FromForm] ImageUpdate model)
         {
             var image = await _context.Images.FindAsync(id);
 
@@ -103,12 +102,12 @@ namespace Image.Gallery.WebAPP.Controllers
                 }
             }
 
-            return NoContent();
+            return RedirectToAction("Index", "Home");
         }
 
         // Delete an image
-        [HttpDelete("{id}")]
-        [Authorize] // Requires authentication
+        [HttpPost("{id}")]
+        //[Authorize] // Requires authentication
         public async Task<IActionResult> DeleteImage(int id)
         {
             var image = await _context.Images.FindAsync(id);
@@ -121,7 +120,7 @@ namespace Image.Gallery.WebAPP.Controllers
             _context.Images.Remove(image);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return RedirectToAction("Index", "Home");
         }
 
         private bool ImageExists(int id)
@@ -140,8 +139,6 @@ namespace Image.Gallery.WebAPP.Controllers
 
         private bool IsValidImageFormat(string contentType)
         {
-            // Implement your image format validation logic here
-            // Example: Check if the content type is an image (e.g., "image/jpeg", "image/png")
             return contentType.StartsWith("image/");
         }
     }

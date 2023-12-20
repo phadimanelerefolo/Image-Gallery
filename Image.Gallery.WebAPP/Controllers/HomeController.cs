@@ -20,13 +20,24 @@ namespace Image.Gallery.WebAPP.Controllers
 
         public IActionResult Index()
         {
-            //var images = _context.Images.ToList();
-            //return View(images);
-            return View();
+            var images = _context.Images.ToList();
+            return View(images);
         }
         public IActionResult Upload()
         {
             return View();
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var image = _context.Images.FirstOrDefault(f => f.Id == id);
+
+            if (image == null)
+            {
+                return NotFound();
+            }
+
+            return View(image);
         }
 
         public IActionResult Privacy()
