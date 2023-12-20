@@ -22,11 +22,12 @@ cd image-gallery
 Update the connection string in appsettings.json with your database details.
 
 ### Apply Migrations
-
+```
 dotnet ef database update
-
+```
 ### Run the Application
-
+```
 dotnet run --project Image.Gallery.WebAPP
+```
 
 The application will be accessible at https://localhost:7008 (or http://localhost:5150).
