@@ -16,7 +16,7 @@ Before running the application, make sure you have the following installed:
 ```bash
 git clone https://github.com/phadimanelerefolo/Image-Gallery.git
 cd image-gallery
-
+```
 ### Database Setup
 
 Update the connection string in appsettings.json with your database details.
